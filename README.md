@@ -1,4 +1,5 @@
-# CNN-regression
+# Prediction of Gaussian noise level in RGB image Using Deep CNN
+
 This project focuses on training a deep learning model to predict noise levels in RGB images using a Custom Convolutional Neural Network (CNN). The model processes images, adds Gaussian noise, and then trains to estimate the noise parameter (sigma) applied to the image. The project uses PyTorch for model development and TensorBoard for tracking metrics.
 
 Project Structure
