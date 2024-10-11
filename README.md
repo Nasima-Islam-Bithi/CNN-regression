@@ -2,7 +2,7 @@
 
 This project focuses on training a deep learning model to predict noise levels in RGB images using a Custom Convolutional Neural Network (CNN). The model processes images, adds Gaussian noise, and then trains to estimate the noise parameter (sigma) applied to the image. The project uses PyTorch for model development and TensorBoard for tracking metrics.
 
-#Project Structure
+Project Structure
     Model Architecture: The architecture is based on a Custom CNN that processes images and predicts the noise sigma.
     Data: The images are loaded from a dataset and Gaussian noise is added with different sigma values.
     Metrics: The model performance is evaluated using MAE (Mean Absolute Error), MSE (Mean Squared Error), and R² score.
