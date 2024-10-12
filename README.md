@@ -50,11 +50,10 @@ from torchsummary import summary
 summary(model, input_size=(3, 224, 224), device='cuda')
 
 
-Dataset Preparation
+### Dataset Preparation
 The model is trained on a dataset containing images with varying levels of synthetic Gaussian noise. The dataset structure should be as follows:
 
-bash
-Copy code
+```python
 data/
   train/
     image1.jpg
