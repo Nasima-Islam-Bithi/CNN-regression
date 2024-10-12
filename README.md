@@ -61,7 +61,6 @@ data/
     ...
 ### Adding Noise to Images
 Noise is added dynamically during training using a Gaussian noise function. The CustomDataset class handles the loading and augmentation of images by adding random noise based on a sigma value.
-Capture.JPG
 ![Added random noise](images/Capture.JPG)
 ## Installation
 Clone the repository and install the required dependencies
