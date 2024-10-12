@@ -46,3 +46,5 @@ You can view a summary of the model architecture using the `torchsummary` packag
 ```python
 from torchsummary import summary
 summary(model, input_size=(3, 224, 224), device='cuda')
+
+## Dataset Preparation
