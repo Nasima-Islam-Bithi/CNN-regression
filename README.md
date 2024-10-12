@@ -1,59 +1,86 @@
-# Prediction of Gaussian noise level in RGB image Using Deep CNN
+# Custom Noise Estimation using CNN with Skip Connections
 
-This project focuses on training a deep learning model to predict noise levels in RGB images using a Custom Convolutional Neural Network (CNN). The model processes images, adds Gaussian noise, and then trains to estimate the noise parameter (sigma) applied to the image. The project uses PyTorch for model development and TensorBoard for tracking metrics.
+This repository contains a PyTorch implementation of a Convolutional Neural Network (CNN) model for estimating noise in images. The model is based on the pre-trained VGG16 architecture with custom modifications, including additional convolutional layers, skip connections, and a regression head for noise estimation.
 
-Project Structure
-    Model Architecture: The architecture is based on a Custom CNN that processes images and predicts the noise sigma.
-    Data: The images are loaded from a dataset and Gaussian noise is added with different sigma values.
-    Metrics: The model performance is evaluated using MAE (Mean Absolute Error), MSE (Mean Squared Error), and R² score.
-    Logging: TensorBoard is used for tracking the loss and evaluation metrics over the training process.
+## Table of Contents
+- [Requirements](#requirements)
+- [Model Architecture](#model-architecture)
+- [Data Preparation](#data-preparation)
+- [Training the Model](#training-the-model)
+- [Testing the Model](#testing-the-model)
+- [Results](#results)
+- [Usage](#usage)
 
-Prerequisites
-    Python 3.8 or higher
-    Libraries:
-        PyTorch
-        Torchvision
-        NumPy
-        PIL (Python Imaging Library)
-        Scikit-learn
-        TensorBoard
+## Requirements
 
-Install the necessary libraries using:
-pip install torch torchvision numpy pillow scikit-learn tensorboard
+Install the necessary packages using:
 
-Running the Notebook
-    Data Preparation:
-        Place your image datasets (e.g., DIV2K, Flickr2k, OST) in the appropriate folders.
-        The images will be loaded, resized, and transformed using torchvision.transforms.
+```bash
+pip install -r requirements.txt
 
-    Training the Model:
-        The training loop includes adding Gaussian noise to the images, followed by a forward pass through the CNN.
-        Training metrics such as MAE, MSE, and R² are logged using TensorBoard.
-        Run the training cells to start the process.
 
-    Evaluating the Model:
-        After training, the model is evaluated using a validation dataset to check its accuracy in predicting the noise sigma.
-        The notebook includes cells to compute the final MAE, MSE, and R² for the validation set.
+Key libraries:
 
-    Visualization:
-        TensorBoard is used to visualize the training progress and evaluation metrics.
-        To start TensorBoard, run:
-        tensorboard --logdir=runs
+PyTorch
+torchvision
+scikit-learn
+PIL
+matplotlib
+tqdm
+TensorBoard
+Model Architecture
+The model uses a modified VGG16 as a feature extractor and adds additional convolutional layers with skip connections. The regression head is used to predict the noise level (sigma) in the images.
 
-Custom CNN Architecture
+Key Layers:
+Feature extractor: Pretrained VGG16 layers
+Convolutional Layers: Additional layers for noise feature extraction
+Skip Connections: Bypasses part of the convolution for better gradient flow
+Regression Head: Fully connected layers predicting noise level
 
-The Custom CNN model is designed to estimate the noise level in an image (sigma) with the following layers:
+Data Preparation
+The model expects a dataset of images for noise estimation. The dataset is structured in the following format:
+data/
+  train/
+    image1.jpg
+    image2.png
+    ...
+  test/
+    image1.jpg
+    image2.png
+    ...
+image Preprocessing
+Images are resized to 224x224 and converted to tensors. Noise is added dynamically during training using a Gaussian noise function.
 
-    Convolutional layers with ReLU activations and max-pooling
-    A fully connected regression network that outputs the noise estimate
+Training the Model
+To train the model, use the following script:
+python train.py
+The training script implements a loop for 10 epochs and logs the metrics to TensorBoard.
+
+Key metrics:
+
+Mean Absolute Error (MAE)
+R2 Score
+Loss (MSE Loss)
+A learning rate scheduler is used to adjust the learning rate after every 5 epochs.
+
+Testing the Model
+You can test the model on the validation set using the following command:
+python test.py
+Results will include the MAE, MSE, R2 score, and loss.
+
+Results
+After 10 epochs, the model achieves the following on the test set:
+
+MAE: 0.0136
+R2 Score: 0.9936
+You can visualize predictions for individual samples using the visualize_predictions function. This will plot the input image and a bar chart comparing the true and predicted noise levels.
 
 Usage
+To use the model on your dataset, update the train_dir and val_dir paths in the script and run the training process.
 
-    Clone the repository:
-    git clone <repository-link>
-    cd <repository-folder>
-
-    Launch the Jupyter Notebook:
-    jupyter notebook noise.ipynb
-
-Follow the instructions in the notebook to start training and evaluating the model.
+You can also load a pre-trained model using:
+model.load_state_dict(torch.load('model.pth'))
+Acknowledgments
+PyTorch
+TorchVision
+TensorBoard
