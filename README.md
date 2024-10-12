@@ -46,3 +46,77 @@ You can view a summary of the model architecture using the `torchsummary` packag
 ```python
 from torchsummary import summary
 summary(model, input_size=(3, 224, 224), device='cuda')
+
+
+## Dataset Preparation
+
+The model is trained on a dataset containing images with varying levels of synthetic Gaussian noise. The dataset structure should be as follows:
+
+
+### Adding Noise to Images
+
+Noise is added dynamically during training using a Gaussian noise function. The `CustomDataset` class handles the loading and augmentation of images by adding random noise based on a sigma value.
+
+Here's a code snippet demonstrating how to implement the dataset preparation:
+
+```python
+import os
+import numpy as np
+from PIL import Image
+import torch
+from torch.utils.data import Dataset
+import torchvision.transforms as transforms
+
+class CustomDataset(Dataset):
+    def __init__(self, directory, transform=None):
+        """
+        Args:
+            directory (string): Directory with all the images.
+            transform (callable, optional): Optional transform to be applied on a sample.
+        """
+        self.directory = directory
+        self.image_files = [f for f in os.listdir(directory) if f.endswith(('.png', '.jpg', '.jpeg'))]
+        self.transform = transform
+
+    def __len__(self):
+        return len(self.image_files)
+
+    def __getitem__(self, idx):
+        # Load image
+        img_path = os.path.join(self.directory, self.image_files[idx])
+        image = Image.open(img_path).convert('RGB')
+        
+        # Add Gaussian noise
+        sigma = np.random.uniform(10, 50)  # Randomly select sigma value for noise
+        noisy_image = self.add_gaussian_noise(image, sigma)
+
+        # Apply transforms
+        if self.transform:
+            image = self.transform(image)
+            noisy_image = self.transform(noisy_image)
+
+        return noisy_image, sigma
+
+    def add_gaussian_noise(self, image, sigma):
+        """Adds Gaussian noise to an image."""
+        image_np = np.array(image) / 255.0  # Normalize the image
+        noise = np.random.normal(0, sigma / 255.0, image_np.shape)  # Generate noise
+        noisy_image_np = np.clip(image_np + noise, 0, 1)  # Add noise and clip to valid range
+        noisy_image = Image.fromarray((noisy_image_np * 255).astype(np.uint8))  # Convert back to PIL Image
+        return noisy_image
+
+# Transformations
+transform = transforms.Compose([
+    transforms.Resize((224, 224)),
+    transforms.ToTensor(),
+])
+
+# Example usage
+train_dataset = CustomDataset(directory='data/train', transform=transform)
+test_dataset = CustomDataset(directory='data/test', transform=transform)
+
+train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=32, shuffle=True)
+test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=32, shuffle=False)
+
+print(f"Number of training images: {len(train_loader.dataset)}")
+print(f"Number of testing images: {len(test_loader.dataset)}")
