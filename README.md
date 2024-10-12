@@ -1,5 +1,3 @@
-markdown
-Copy code
 # Custom Convolutional Neural Network for Image Noise Estimation
 
 This repository contains a PyTorch implementation of a custom Convolutional Neural Network (CNN) model designed for image noise estimation. The model is based on a modified VGG-16 backbone with additional convolutional and regression layers to estimate noise levels in images.
