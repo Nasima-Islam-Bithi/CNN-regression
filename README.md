@@ -50,6 +50,7 @@ summary(model, input_size=(3, 224, 224), device='cuda')
 
 ## Dataset Preparation
 The model is trained on a dataset containing images with varying levels of synthetic Gaussian noise. The dataset structure should be as follows:
+```bash
 data/
   train/
     image1.jpg
@@ -59,6 +60,7 @@ data/
     image1.jpg
     image2.png
     ...
+```
 ### Adding Noise to Images
 Noise is added dynamically during training using a Gaussian noise function. The CustomDataset class handles the loading and augmentation of images by adding random noise based on a sigma value.
 ![Added random noise](images/Capture.JPG)
