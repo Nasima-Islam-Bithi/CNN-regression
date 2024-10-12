@@ -97,18 +97,22 @@ Visualize the model's predictions compared to the true noise levels using the vi
 
 
 ## Results
+
 After training for 10 epochs, the model achieves impressive performance on the test set:
-Epoch	Loss	MAE	MSE	R²
-1	0.0240	0.0879	0.0088	0.5251
-2	0.0031	0.0438	0.0030	0.9428
-3	0.0024	0.0379	0.0030	0.9405
-4	0.0018	0.0326	0.0018	0.9649
-5	0.0013	0.0283	0.0009	0.9812
-6	0.0007	0.0206	0.0005	0.9912
-7	0.0006	0.0196	0.0004	0.9926
-8	0.0006	0.0194	0.0004	0.9925
-9	0.0006	0.0189	0.0005	0.9909
-10	0.0006	0.0187	0.0003	0.9936
+
+| Epoch |   Loss   |   MAE   |   MSE   |   R²   |
+|-------|----------|---------|---------|--------|
+|   1   | 0.0240   | 0.0879  | 0.0088  | 0.5251 |
+|   2   | 0.0031   | 0.0438  | 0.0030  | 0.9428 |
+|   3   | 0.0024   | 0.0379  | 0.0030  | 0.9405 |
+|   4   | 0.0018   | 0.0326  | 0.0018  | 0.9649 |
+|   5   | 0.0013   | 0.0283  | 0.0009  | 0.9812 |
+|   6   | 0.0007   | 0.0206  | 0.0005  | 0.9912 |
+|   7   | 0.0006   | 0.0196  | 0.0004  | 0.9926 |
+|   8   | 0.0006   | 0.0194  | 0.0004  | 0.9925 |
+|   9   | 0.0006   | 0.0189  | 0.0005  | 0.9909 |
+|  10   | 0.0006   | 0.0187  | 0.0003  | 0.9936 |
+
 The model consistently improves its performance across epochs, achieving a final R² score of 0.9936, indicating a high level of accuracy in noise estimation.
 
 ## Saving and Loading the Model
