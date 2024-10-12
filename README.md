@@ -28,7 +28,9 @@ PIL
 matplotlib
 tqdm
 TensorBoard
-Model Architecture
+
+
+## Model Architecture
 The model uses a modified VGG16 as a feature extractor and adds additional convolutional layers with skip connections. The regression head is used to predict the noise level (sigma) in the images.
 
 Key Layers:
@@ -37,7 +39,7 @@ Convolutional Layers: Additional layers for noise feature extraction
 Skip Connections: Bypasses part of the convolution for better gradient flow
 Regression Head: Fully connected layers predicting noise level
 
-Data Preparation
+## Data Preparation
 The model expects a dataset of images for noise estimation. The dataset is structured in the following format:
 data/
   train/
@@ -48,10 +50,10 @@ data/
     image1.jpg
     image2.png
     ...
-image Preprocessing
+## image Preprocessing
 Images are resized to 224x224 and converted to tensors. Noise is added dynamically during training using a Gaussian noise function.
 
-Training the Model
+## Training the Model
 To train the model, use the following script:
 python train.py
 The training script implements a loop for 10 epochs and logs the metrics to TensorBoard.
@@ -63,19 +65,19 @@ R2 Score
 Loss (MSE Loss)
 A learning rate scheduler is used to adjust the learning rate after every 5 epochs.
 
-Testing the Model
+## Testing the Model
 You can test the model on the validation set using the following command:
 python test.py
 Results will include the MAE, MSE, R2 score, and loss.
 
-Results
+## Results
 After 10 epochs, the model achieves the following on the test set:
 
 MAE: 0.0136
 R2 Score: 0.9936
 You can visualize predictions for individual samples using the visualize_predictions function. This will plot the input image and a bar chart comparing the true and predicted noise levels.
 
-Usage
+## Usage
 To use the model on your dataset, update the train_dir and val_dir paths in the script and run the training process.
 
 You can also load a pre-trained model using:
