@@ -117,6 +117,10 @@ After training for 10 epochs, the model achieves impressive performance on the t
 
 The model consistently improves its performance across epochs, achieving a final R² score of 0.9936, indicating a high level of accuracy in noise estimation.
 
+### Output 
+![output1](images/output1.JPG)
+![output2](images/output2.JPG)
+
 ## Saving and Loading the Model
 ### Saving the Model
 After training, save the model's state dictionary:
