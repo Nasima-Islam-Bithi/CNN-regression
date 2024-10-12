@@ -80,6 +80,93 @@ To use the model on your dataset, update the train_dir and val_dir paths in the 
 
 You can also load a pre-trained model using:
 model.load_state_dict(torch.load('model.pth'))
+
+
+markdown
+Copy code
+# Custom Convolutional Neural Network for Image Noise Estimation
+
+This repository contains a PyTorch implementation of a custom Convolutional Neural Network (CNN) model designed for image noise estimation. The model is built upon a modified VGG-16 backbone with added convolutional and regression layers to estimate noise levels in images.
+
+## Model Architecture
+
+The model uses a pre-trained VGG-16 as a feature extractor, followed by additional convolutional layers and a regressor network that predicts the noise level in an input image. Key components include:
+
+- **VGG-16 Feature Extractor**: Uses the first 10 layers of the pre-trained VGG-16.
+- **Skip Connections**: Added between specific layers for better gradient flow.
+- **Regressor Network**: Fully connected layers used to predict the noise level in images.
+
+### Architecture Details
+- Convolutional layers with ReLU and skip connections.
+- Regressor with fully connected layers and LeakyReLU activations.
+- Layer normalization and dropout for regularization.
+
+### Model Summary
+You can print a summary of the model using `torchsummary`.
+
+## Training and Testing
+
+The training process uses mean squared error (MSE) as the loss function and Adam optimizer for weight updates. During training and testing, metrics such as mean absolute error (MAE) and R-squared (R²) score are computed for performance evaluation.
+
+### Key Functions
+- **train**: Trains the model and logs metrics such as loss, MAE, and R² to TensorBoard.
+- **test**: Evaluates the model on the validation set and logs metrics to TensorBoard.
+- **visualize_predictions**: Visualizes input images alongside the true and predicted noise levels for easy inspection of model performance.
+
+### Dataset
+
+The model was trained on images from the [Div2k, Flickr2k, and OST datasets](https://data.vision.ee.ethz.ch/cvl/DIV2K/) with added synthetic noise. The dataset is loaded via the `CustomDataset` class, which applies random noise to the images during data augmentation.
+
+### Example Usage
+
+1. **Training**:
+   ```python
+   python train.py
+Testing:
+
+python
+Copy code
+python test.py
+Model Visualization: You can visualize the model’s predictions using:
+
+python
+Copy code
+visualize_predictions(model, valloader)
+Requirements
+To run this project, ensure you have the following dependencies installed:
+
+Python 3.7+
+PyTorch
+torchvision
+scikit-learn
+tqdm
+TensorBoard
+Pillow
+matplotlib
+Install dependencies using:
+
+bash
+Copy code
+pip install -r requirements.txt
+Sample Results
+After training, the model produces the following metrics:
+
+Epoch	Loss	MAE	R²
+1	0.0240	0.0879	0.5251
+2	0.0031	0.0438	0.9385
+10	0.0006	0.0187	0.9884
+Visualization
+
+The visualize_predictions function provides a comparison of true and predicted noise levels.
+
+Saving the Model
+The trained model can be saved and loaded using:
+
+python
+Copy code
+torch.save(model.state_dict(), 'noise_estimation_model.pth')
+License
+This project is licensed under the MIT License. See the LICENSE file for details.
 Acknowledgments
 PyTorch
 TorchVision
