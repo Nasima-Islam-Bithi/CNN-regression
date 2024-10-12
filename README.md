@@ -1,7 +1,5 @@
 # Custom Convolutional Neural Network for Image Noise Estimation
 
-![Project Banner](path_to_your_banner_image.png)
-
 This repository contains a PyTorch implementation of a custom Convolutional Neural Network (CNN) designed to estimate the noise level (sigma) in images. The model leverages a pre-trained VGG-16 backbone with additional convolutional layers, skip connections, and a regression head to accurately predict the noise intensity present in input images.
 
 ## Table of Contents
